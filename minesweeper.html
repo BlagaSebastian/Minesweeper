@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper</title>
+    <link rel="stylesheet" href="minesweeper.css">
+</head>
+<body>
+    <h1 style="text-align: center;">Minesweeper</h1>
+    <p id="gameConclusion"></p>
+    <div id="gameBoard" oncontextmenu="return false;"></div>
+    <div>
+        <button onClick = "window.location.reload();" id="restart" style="height: 50px; width: 60px;">Restart</button>
+    </div>
+    <div id="gameStatus">
+        <p>Status</p>
+        <p id="timer">0:00 ⏱</p>
+        <p id="bombs">20 💣</p>
+    </div>
+    <script src="minesweeper.js"></script>
+</body>
+</html>
