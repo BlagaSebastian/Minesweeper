@@ -1,0 +1,39 @@
+#gameBoard {
+    display: grid;
+    grid-template-columns: repeat(10, auto);
+    width: 600px;
+    height: 600px;
+    margin: 30px auto;
+    border: 1px solid;
+}
+
+.cell {
+    display: block;
+    width: 58px;
+    height: 58px;
+    cursor: pointer;
+    line-height: 30px;
+    font-size: 30px;
+}
+
+#gameStatus {
+    position: absolute;
+    font-size:160%;
+    left: 68%;
+    top: 20%;
+}
+
+#restart {
+    position: absolute;
+    width: 60px;
+    height: 40px;
+    left: 68%;
+    top: 50%;
+}
+
+#gameConclusion {
+    position: absolute;
+    font-size: 2.5em;
+    left: 42%;
+    top: 33%;
+}
