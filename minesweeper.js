@@ -1,9 +1,9 @@
 let minutes = 0;
 let seconds = 0;
-const TEN = 10;
+const SIZE = 10;
 let bobms = 0;
 let mat = [];
-for (let i = 0; i < TEN; ++i) {
+for (let i = 0; i < SIZE; ++i) {
     mat[i] = [];
 }
 const neighbors = [[1, 0], [0, 1], [-1, 0], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]];
@@ -18,7 +18,7 @@ function timer() {
         ++minutes;
         seconds = 0;
     }
-    if (seconds < TEN) {
+    if (seconds < SIZE) {
         document.getElementById("timer").innerHTML = minutes + ':0' + seconds + ' ⏱';
     } else {
         document.getElementById("timer").innerHTML = minutes + ':' + seconds + ' ⏱';
@@ -26,21 +26,21 @@ function timer() {
 }
 
 function generateElements() {
-    while (bobms < TEN * 2) {
-        let randomLine = Math.floor(Math.random() * TEN);
-        let randomColumn = Math.floor(Math.random() * TEN);
+    while (bobms < SIZE * 2) {
+        let randomLine = Math.floor(Math.random() * SIZE);
+        let randomColumn = Math.floor(Math.random() * SIZE);
         if (mat[randomLine][randomColumn] != '💣') {
             mat[randomLine][randomColumn] = '💣';
             ++bobms;
         }
     }
-    for (let i = 0; i < TEN; ++i) {
-        for (let j = 0; j < TEN; ++j) {
+    for (let i = 0; i < SIZE; ++i) {
+        for (let j = 0; j < SIZE; ++j) {
             if (mat[i][j] != '💣') {
                 let dangerGrade = 0;
                 for (let k = 0; k < neighbors.length; ++k) {
-                    if (i + neighbors[k][0] >= 0 && i + neighbors[k][0] < TEN &&
-                        j + neighbors[k][1] >= 0 && j + neighbors[k][1] < TEN && 
+                    if (i + neighbors[k][0] >= 0 && i + neighbors[k][0] < SIZE &&
+                        j + neighbors[k][1] >= 0 && j + neighbors[k][1] < SIZE && 
                         mat[i + neighbors[k][0]][j + neighbors[k][1]] == '💣') {
                             ++dangerGrade;
                     }
@@ -59,8 +59,8 @@ let showList = [];
 let k = 0;
 
 function generateBoard() {
-    for (let i = 0; i < TEN; ++i) {
-        for (let j = 0; j < TEN; ++j) {
+    for (let i = 0; i < SIZE; ++i) {
+        for (let j = 0; j < SIZE; ++j) {
             let button = document.createElement('button');
             button.className = 'cell';
             button.id = [i, j];
@@ -75,6 +75,17 @@ function generateBoard() {
             document.getElementById('gameBoard').appendChild(button);
         }
     }
+}
+
+function flagMark(id) {
+    if (document.getElementById(id).innerHTML == '🚩') {
+        document.getElementById(id).innerHTML = '';
+        ++bobms;
+    } else {
+        document.getElementById(id).innerHTML = '🚩';
+        --bobms;
+    }
+    document.getElementById('bombs').innerHTML = bobms + '💣';
 }
 
 function showElements() {
@@ -95,7 +106,7 @@ function showElements() {
     if (mat[showList[k][0]][showList[k][1]] == '') {
         addNeighbors(showList[k][0], showList[k][1]);
     }
-    ++k
+    ++k;
     if (k == showList.length) {
         return;
     }
@@ -104,8 +115,8 @@ function showElements() {
 
 function addNeighbors(i, j) {
     for (let k = 0; k < neighbors.length; ++k) {
-        if (i + neighbors[k][0] >= 0 && i + neighbors[k][0] < TEN &&
-            j + neighbors[k][1] >= 0 && j + neighbors[k][1] < TEN) {
+        if (i + neighbors[k][0] >= 0 && i + neighbors[k][0] < SIZE &&
+            j + neighbors[k][1] >= 0 && j + neighbors[k][1] < SIZE) {
             let distinctive = 1;
             for (let l = 0; l < showList.length; ++l) {
                 if (showList[l][0] == i + neighbors[k][0] && showList[l][1] == j + neighbors[k][1]) {
@@ -119,29 +130,18 @@ function addNeighbors(i, j) {
     }
 }
 
-function flagMark(id) {
-    if (document.getElementById(id).innerHTML == '🚩') {
-        document.getElementById(id).innerHTML = '';
-        ++bobms;
-    } else {
-        document.getElementById(id).innerHTML = '🚩';
-        --bobms;
-    }
-    document.getElementById('bombs').innerHTML = bobms + '💣';
-}
-
 function statusCheck(element) {
     if (element == '💣') {
-        for (let i = 0; i < TEN; ++i) {
-            for (let j = 0; j < TEN; ++j) {
+        for (let i = 0; i < SIZE; ++i) {
+            for (let j = 0; j < SIZE; ++j) {
                 document.getElementById([i, j]).disabled = true;
-                document.getElementById([i, j]).innerHTML = mat[i][j];
                 if (mat[i][j] == '💣') {
                     document.getElementById([i, j]).innerHTML = '💣';
                 }
             }
         }
         document.getElementById("gameConclusion").innerHTML = "💥Game Over!💥";
+        document.getElementById("gameConclusion").style.color = "red";
         clearInterval(countTime);
     } else if (k == 79) {
         document.getElementById("gameConclusion").innerHTML = "🚩You Won!🚩";
