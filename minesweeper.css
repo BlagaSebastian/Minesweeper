@@ -19,7 +19,7 @@
 #gameStatus {
     position: absolute;
     font-size:160%;
-    left: 68%;
+    left: 80%;
     top: 20%;
 }
 
@@ -27,7 +27,7 @@
     position: absolute;
     width: 60px;
     height: 40px;
-    left: 68%;
+    left: 80%;
     top: 50%;
 }
 
